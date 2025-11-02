@@ -42,16 +42,15 @@ const App = () => {
   }
 
   const moods = [
-    { emoji: '😢', label: 'Sad', color: 'bg-blue-50 dark:bg-blue-900/20' },
-    { emoji: '😊', label: 'Happy', color: 'bg-green-50 dark:bg-green-900/20' },
-    { emoji: '😄', label: 'Excited', color: 'bg-yellow-50 dark:bg-yellow-900/20' },
-    { emoji: '😌', label: 'Calm', color: 'bg-indigo-50 dark:bg-indigo-900/20' },
-    { emoji: '😡', label: 'Angry', color: 'bg-red-50 dark:bg-red-900/20' },
-    { emoji: '😴', label: 'Tired', color: 'bg-purple-50 dark:bg-purple-900/20' }
+    { emoji: '😢', label: 'Sad', color: 'bg-blue-100 dark:bg-blue-900/30 border-blue-200 dark:border-blue-700' },
+    { emoji: '😊', label: 'Happy', color: 'bg-green-100 dark:bg-green-900/30 border-green-200 dark:border-green-700' },
+    { emoji: '😄', label: 'Excited', color: 'bg-yellow-100 dark:bg-yellow-900/30 border-yellow-200 dark:border-yellow-700' },
+    { emoji: '😌', label: 'Calm', color: 'bg-indigo-100 dark:bg-indigo-900/30 border-indigo-200 dark:border-indigo-700' },
+    { emoji: '😡', label: 'Angry', color: 'bg-red-100 dark:bg-red-900/30 border-red-200 dark:border-red-700' },
+    { emoji: '😴', label: 'Tired', color: 'bg-purple-100 dark:bg-purple-900/30 border-purple-200 dark:border-purple-700' }
   ]
 
   useEffect(() => {
-    const hour = new Date().getHours()
     const savedTheme = localStorage.getItem('theme')
     if (savedTheme) {
       setIsDark(savedTheme === 'dark')
@@ -127,34 +126,46 @@ const App = () => {
   return (
     <div className={`min-h-screen transition-colors duration-300 ${
       isDark 
-        ? 'dark bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-gray-100' 
-        : 'bg-gradient-to-br from-gray-50 via-blue-50 to-gray-50 text-gray-800'
+        ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-gray-100' 
+        : 'bg-gradient-to-br from-gray-50 via-blue-50 to-gray-100 text-gray-800'
     }`}>
       {/* Subtle Background Elements */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-10 left-10 w-20 h-20 bg-blue-100 dark:bg-blue-900/20 rounded-full opacity-40 animate-float"></div>
-        <div className="absolute top-40 right-20 w-16 h-16 bg-green-100 dark:bg-green-900/20 rounded-full opacity-30 animate-float" style={{ animationDelay: '1s' }}></div>
-        <div className="absolute bottom-20 left-20 w-24 h-24 bg-indigo-100 dark:bg-indigo-900/20 rounded-full opacity-25 animate-float" style={{ animationDelay: '2s' }}></div>
+        <div className={`absolute top-10 left-10 w-20 h-20 rounded-full opacity-40 animate-float ${
+          isDark ? 'bg-blue-900/20' : 'bg-blue-200'
+        }`}></div>
+        <div className={`absolute top-40 right-20 w-16 h-16 rounded-full opacity-30 animate-float ${
+          isDark ? 'bg-green-900/20' : 'bg-green-200'
+        }`} style={{ animationDelay: '1s' }}></div>
+        <div className={`absolute bottom-20 left-20 w-24 h-24 rounded-full opacity-25 animate-float ${
+          isDark ? 'bg-indigo-900/20' : 'bg-indigo-200'
+        }`} style={{ animationDelay: '2s' }}></div>
       </div>
 
       {/* Header */}
       <header className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 opacity-10"></div>
+        <div className={`absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 ${
+          isDark ? 'opacity-20' : 'opacity-10'
+        }`}></div>
         <div className="relative max-w-7xl mx-auto px-4 py-8">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4 animate-fade-in-up">
             <div>
-              <h1 className="text-4xl font-bold text-gray-800 dark:text-white">
+              <h1 className="text-4xl font-bold">
                 {getGreeting()}
               </h1>
-              <p className="text-lg text-gray-600 dark:text-gray-300 mt-2">
+              <p className={`text-lg mt-2 ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
                 How are you feeling today?
               </p>
             </div>
             <button
               onClick={toggleTheme}
-              className="px-6 py-3 rounded-full transition-all duration-300 hover:scale-105 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200 dark:border-gray-700 hover:bg-white dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 shadow-sm hover:shadow-md"
+              className={`px-6 py-3 rounded-full transition-all duration-300 hover:scale-105 backdrop-blur-sm border shadow-sm hover:shadow-md ${
+                isDark 
+                  ? 'bg-gray-800/80 border-gray-700 hover:bg-gray-700 text-gray-300' 
+                  : 'bg-white/80 border-gray-200 hover:bg-white text-gray-700'
+              }`}
             >
-              {isDark ? '☀️ Light' : '🌙 Dark'}
+              {isDark ? '☀️ Light Mode' : '🌙 Dark Mode'}
             </button>
           </div>
         </div>
@@ -163,21 +174,23 @@ const App = () => {
       <main className="relative max-w-7xl mx-auto px-4 py-8">
         {/* Mood Selection */}
         <section className="mb-12 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-          <h2 className="text-2xl font-semibold mb-6 text-center text-gray-800 dark:text-white">Select Your Mood</h2>
+          <h2 className="text-2xl font-semibold mb-6 text-center">Select Your Mood</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 max-w-4xl mx-auto">
             {moods.map((moodItem, index) => (
               <button
                 key={moodItem.label}
                 onClick={() => handleMoodSelect(moodItem)}
-                className={`p-6 rounded-2xl transition-all duration-300 hover:scale-105 border-2 ${
+                className={`p-6 rounded-2xl transition-all duration-300 hover:scale-105 border-2 backdrop-blur-sm shadow-sm animate-bounce-in ${
                   mood?.label === moodItem.label
                     ? 'border-blue-500 scale-105 shadow-lg animate-pulse-glow'
-                    : 'border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600'
-                } ${moodItem.color} backdrop-blur-sm animate-bounce-in shadow-sm`}
+                    : `hover:border-blue-300 dark:hover:border-blue-600 ${moodItem.color}`
+                }`}
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <div className="text-4xl mb-2">{moodItem.emoji}</div>
-                <div className="text-sm font-medium text-gray-700 dark:text-gray-300">{moodItem.label}</div>
+                <div className={`text-sm font-medium ${isDark ? 'text-gray-200' : 'text-gray-700'}`}>
+                  {moodItem.label}
+                </div>
               </button>
             ))}
           </div>
@@ -186,7 +199,7 @@ const App = () => {
         {/* Thought Input */}
         <section className="mb-12 max-w-2xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
           <form onSubmit={handleThoughtSubmit} className="space-y-4">
-            <label className="block text-xl font-semibold text-center text-gray-800 dark:text-white">
+            <label className="block text-xl font-semibold text-center">
               Share Your Thoughts
             </label>
             <div className="relative">
@@ -194,7 +207,11 @@ const App = () => {
                 value={thoughts}
                 onChange={(e) => setThoughts(e.target.value)}
                 placeholder="What's on your mind today?"
-                className="w-full h-32 p-4 rounded-2xl border border-gray-300 dark:border-gray-600 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 shadow-sm focus:shadow-md text-gray-800 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400"
+                className={`w-full h-32 p-4 rounded-2xl border backdrop-blur-sm resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 shadow-sm focus:shadow-md placeholder-gray-500 ${
+                  isDark 
+                    ? 'bg-gray-800/80 border-gray-600 text-gray-100 placeholder-gray-400' 
+                    : 'bg-white/80 border-gray-300 text-gray-800'
+                }`}
               />
             </div>
             <button
@@ -217,17 +234,27 @@ const App = () => {
         {/* Current Quote Display */}
         {quote && (
           <section className="mb-12 max-w-4xl mx-auto animate-scale-in">
-            <h2 className="text-2xl font-semibold mb-6 text-center text-gray-800 dark:text-white">Your Inspiration</h2>
-            <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl p-8 shadow-lg border border-gray-200 dark:border-gray-700 transform transition-all duration-500 hover:shadow-xl">
+            <h2 className="text-2xl font-semibold mb-6 text-center">Your Inspiration</h2>
+            <div className={`backdrop-blur-sm rounded-3xl p-8 shadow-lg border transform transition-all duration-500 hover:shadow-xl ${
+              isDark 
+                ? 'bg-gray-800/80 border-gray-700' 
+                : 'bg-white/80 border-gray-200'
+            }`}>
               <div className="text-6xl mb-4 text-center animate-float">✨</div>
-              <p className="text-xl text-center italic mb-4 leading-relaxed text-gray-700 dark:text-gray-300">
+              <p className={`text-xl text-center italic mb-4 leading-relaxed ${
+                isDark ? 'text-gray-200' : 'text-gray-700'
+              }`}>
                 "{quote.content}"
               </p>
-              <p className="text-right text-lg font-medium text-gray-600 dark:text-gray-400">
+              <p className={`text-right text-lg font-medium ${
+                isDark ? 'text-gray-400' : 'text-gray-600'
+              }`}>
                 — {quote.author}
               </p>
               {mood && (
-                <div className="flex items-center justify-center mt-4 gap-2 text-gray-600 dark:text-gray-400">
+                <div className={`flex items-center justify-center mt-4 gap-2 ${
+                  isDark ? 'text-gray-400' : 'text-gray-600'
+                }`}>
                   <span className="text-2xl">{mood.emoji}</span>
                   <span className="text-sm">{mood.label} • {quote.timestamp}</span>
                 </div>
@@ -239,22 +266,32 @@ const App = () => {
         {/* Quotes History */}
         {quotes.length > 0 && (
           <section className="animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
-            <h2 className="text-2xl font-semibold mb-6 text-center text-gray-800 dark:text-white">Your Mood Journey</h2>
+            <h2 className="text-2xl font-semibold mb-6 text-center">Your Mood Journey</h2>
             <div className="pinterest-grid">
               {quotes.map((quoteItem, index) => (
                 <div
                   key={quoteItem.id}
-                  className="quote-card bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-300 hover:scale-105 animate-scale-in"
+                  className={`quote-card backdrop-blur-sm rounded-2xl p-6 shadow-lg border hover:shadow-xl transition-all duration-300 hover:scale-105 animate-scale-in ${
+                    isDark 
+                      ? 'bg-gray-800/80 border-gray-700' 
+                      : 'bg-white/80 border-gray-200'
+                  }`}
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <p className="text-lg italic mb-4 leading-relaxed text-gray-700 dark:text-gray-300">
+                  <p className={`text-lg italic mb-4 leading-relaxed ${
+                    isDark ? 'text-gray-200' : 'text-gray-700'
+                  }`}>
                     "{quoteItem.content}"
                   </p>
-                  <p className="text-right font-medium text-gray-600 dark:text-gray-400 mb-2">
+                  <p className={`text-right font-medium mb-2 ${
+                    isDark ? 'text-gray-400' : 'text-gray-600'
+                  }`}>
                     — {quoteItem.author}
                   </p>
                   {quoteItem.mood && (
-                    <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-500">
+                    <div className={`flex items-center justify-between text-sm ${
+                      isDark ? 'text-gray-500' : 'text-gray-500'
+                    }`}>
                       <span className="flex items-center gap-2">
                         <span className="text-2xl">{quoteItem.mood.emoji}</span>
                         {quoteItem.mood.label}
@@ -270,7 +307,9 @@ const App = () => {
       </main>
 
       {/* Footer */}
-      <footer className="relative text-center py-8 text-gray-600 dark:text-gray-400 text-sm">
+      <footer className={`relative text-center py-8 text-sm ${
+        isDark ? 'text-gray-400' : 'text-gray-600'
+      }`}>
         <p>Made with ❤️ for tracking your daily moods and thoughts</p>
       </footer>
     </div>

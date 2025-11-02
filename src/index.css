@@ -30,19 +30,6 @@ body {
   transition: all 0.3s ease;
 }
 
-/* Consistent gradient themes */
-.gradient-bg {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
-
-.gradient-bg-dark {
-  background: linear-gradient(135deg, #4A5568 0%, #2D3748 100%);
-}
-
-.gradient-bg-light {
-  background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
-}
-
 /* Animations */
 @keyframes fadeInUp {
   from {
@@ -83,10 +70,21 @@ body {
 
 @keyframes pulseGlow {
   0%, 100% {
-    box-shadow: 0 0 15px rgba(102, 126, 234, 0.2);
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
   }
   50% {
-    box-shadow: 0 0 25px rgba(102, 126, 234, 0.3);
+    box-shadow: 0 0 25px rgba(59, 130, 246, 0.5);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
@@ -108,17 +106,6 @@ body {
 
 .animate-scale-in {
   animation: scaleIn 0.5s ease-out;
-}
-
-@keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
 }
 
 /* Custom scrollbar */
