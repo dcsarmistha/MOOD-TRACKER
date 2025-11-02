@@ -142,7 +142,7 @@ const App = () => {
         }`} style={{ animationDelay: '2s' }}></div>
       </div>
 
-      {/* Header */}
+    
       <header className="relative overflow-hidden">
         <div className={`absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 ${
           isDark ? 'opacity-20' : 'opacity-10'
@@ -172,7 +172,7 @@ const App = () => {
       </header>
 
       <main className="relative max-w-7xl mx-auto px-4 py-8">
-        {/* Mood Selection */}
+     
         <section className="mb-12 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
           <h2 className="text-2xl font-semibold mb-6 text-center">Select Your Mood</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 max-w-4xl mx-auto">
@@ -196,7 +196,7 @@ const App = () => {
           </div>
         </section>
 
-        {/* Thought Input */}
+   
         <section className="mb-12 max-w-2xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
           <form onSubmit={handleThoughtSubmit} className="space-y-4">
             <label className="block text-xl font-semibold text-center">
@@ -231,7 +231,6 @@ const App = () => {
           </form>
         </section>
 
-        {/* Current Quote Display */}
         {quote && (
           <section className="mb-12 max-w-4xl mx-auto animate-scale-in">
             <h2 className="text-2xl font-semibold mb-6 text-center">Your Inspiration</h2>
@@ -263,7 +262,7 @@ const App = () => {
           </section>
         )}
 
-        {/* Quotes History */}
+    
         {quotes.length > 0 && (
           <section className="animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
             <h2 className="text-2xl font-semibold mb-6 text-center">Your Mood Journey</h2>
@@ -306,7 +305,7 @@ const App = () => {
         )}
       </main>
 
-      {/* Footer */}
+
       <footer className={`relative text-center py-8 text-sm ${
         isDark ? 'text-gray-400' : 'text-gray-600'
       }`}>
